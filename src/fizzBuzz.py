@@ -4,6 +4,9 @@ value (n), inclusive of n.  What is required, is to know how to make a loop, whe
 to know the math to determine when a number is a factor of another number, and to create a fast method of evaluating
 the requirements.
 """
+import unittest
+import io
+import sys
 
 def fizzBuzz(n: int) -> None:
     for i in range(1, n + 1):
@@ -23,6 +26,45 @@ def fizzBuzz(n: int) -> None:
         print(result)
 
 
+class testFizzBuzz(unittest.TestCase):
+    def test_fizzBuzz(self):
+        # Capture the output of the function
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+
+        # Call the function
+        fizzBuzz(15)
+
+        # Restore stdout
+        sys.stdout = sys.__stdout__
+
+        # Get the output and split it into lines
+        output = captured_output.getvalue().strip().split('\n')
+
+        # Expected output
+        expected_output = [
+            "1",
+            "2",
+            "Fizz",
+            "4",
+            "Buzz",
+            "Fizz",
+            "7",
+            "8",
+            "Fizz",
+            "Buzz",
+            "11",
+            "Fizz",
+            "13",
+            "14",
+            "FizzBuzz",
+        ]
+
+        # Assert the output
+        self.assertEqual(output, expected_output)
+
+
 if __name__ == '__main__':
     n = 35
     fizzBuzz(n)
+    unittest.main()
